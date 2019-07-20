@@ -1,0 +1,7 @@
+appsettings.local.json
+
+.DS_Store
+
+.vscode/
+bin/
+obj/
