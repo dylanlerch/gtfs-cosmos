@@ -1,4 +1,5 @@
 using System;
+using GtfsCosmosLoader.Converters;
 using Newtonsoft.Json;
 
 namespace GtfsCosmosLoader.Models
@@ -27,9 +28,11 @@ namespace GtfsCosmosLoader.Models
 		public bool Sunday { get; set; }
 
 		[JsonProperty("startDate")]
+		[JsonConverter(typeof(DateOnlyConverter))]
 		public DateTimeOffset StartDate { get; set; }
 
 		[JsonProperty("endDate")]
+		[JsonConverter(typeof(DateOnlyConverter))]
 		public DateTimeOffset EndDate { get; set; }
 	}
 }

@@ -1,3 +1,5 @@
+using System;
+using GtfsCosmosLoader.Converters;
 using Newtonsoft.Json;
 
 namespace GtfsCosmosLoader.Models
@@ -19,10 +21,12 @@ namespace GtfsCosmosLoader.Models
 		public string Stop { get; set; }
 
 		[JsonProperty("arrivalTime")]
-		public string ArrivalTime { get; set; }
+		[JsonConverter(typeof(TimeSpanConverter))]
+		public TimeSpan? ArrivalTime { get; set; }
 
 		[JsonProperty("departureTime")]
-		public string DepartureTime { get; set; }
+		[JsonConverter(typeof(TimeSpanConverter))]
+		public TimeSpan? DepartureTime { get; set; }
 
 		[JsonProperty("sequence")]
 		public int Sequence { get; set; }

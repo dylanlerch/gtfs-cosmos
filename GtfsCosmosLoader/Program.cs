@@ -65,6 +65,8 @@ namespace GtfsCosmosLoader
 			var sw = new Stopwatch();
 			sw.Start();
 
+			Console.WriteLine($"Downloading GTFS data from {settings.GftsDataUri}");
+
 			var zipFilePath = Path.Join(settings.GtfsTemporaryLocation, "gtfs.zip");
 			var extractFilePath = Path.Join(settings.GtfsTemporaryLocation, "extract");
 

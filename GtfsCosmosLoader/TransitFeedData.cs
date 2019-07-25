@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using CsvHelper;
+using GtfsCosmosLoader.Converters;
 using GtfsCosmosLoader.Models;
 
 namespace GtfsCosmosLoader
@@ -24,7 +25,7 @@ namespace GtfsCosmosLoader
 		{
 			Trips = new List<TFTrip>();
 			Stops = new HashSet<TFStop>();
-			
+
 			_routes = new Dictionary<string, TFRoute>();
 			_trips = new Dictionary<string, TFTrip>();
 			_stops = new Dictionary<string, TFStop>();
@@ -206,7 +207,7 @@ namespace GtfsCosmosLoader
 			var stopTimesTime = ReadFile(stopTimesPath, (csv) =>
 			{
 				var stopId = csv.GetField(Constants.Fields.StopId);
-				
+
 				var stop = _stops[stopId];
 				var trip = _trips[csv.GetField(Constants.Fields.TripId)];
 
@@ -217,15 +218,15 @@ namespace GtfsCosmosLoader
 				{
 					StopTopLevel = stopTopLevelId,
 					Stop = stopId,
-					ArrivalTime = csv.GetField(Constants.Fields.ArrivalTime).NullIfWhitespace(),
-					DepartureTime = csv.GetField(Constants.Fields.DepartureTime).NullIfWhitespace(),
+					ArrivalTime = TimeSpanParser.ParseStopTime(csv.GetField(Constants.Fields.ArrivalTime)),
+					DepartureTime = TimeSpanParser.ParseStopTime(csv.GetField(Constants.Fields.DepartureTime)),
 					Sequence = csv.GetField<int>(Constants.Fields.StopSequence),
 					PickupType = csv.GetField<TFPickupDropOffType>(Constants.Fields.PickupType),
 					DropOffType = csv.GetField<TFPickupDropOffType>(Constants.Fields.DropOffType)
 				};
 
 				// StopTimes only relate to a stop and a time. Add a reference
-				// for this StopTime to both of those. No list is maintained
+				// for this StopTime to both of those. No list is maintained.
 				trip.StopTimes.Add(stopTime);
 			});
 

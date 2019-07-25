@@ -52,6 +52,7 @@ namespace GtfsCosmosLoader
 		internal static class Formats
 		{
 			internal const string Date = "yyyyMMdd";
+			internal const string Time = "hh\\:mm\\:ss";
 		}
 	}
 }

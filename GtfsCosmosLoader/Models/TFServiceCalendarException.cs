@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using GtfsCosmosLoader.Converters;
 using Newtonsoft.Json;
 
 namespace GtfsCosmosLoader.Models
@@ -13,6 +13,7 @@ namespace GtfsCosmosLoader.Models
 	public class TFServiceCalendarException
 	{
 		[JsonProperty("date")]
+		[JsonConverter(typeof(DateOnlyConverter))]
 		public DateTimeOffset Date { get; set; }
 
 		[JsonProperty("exceptionType")]
